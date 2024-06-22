@@ -1,0 +1,23 @@
+﻿using BethanysPieShop.Models;
+using BethanysPieShop.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+
+namespace BethanysPieShop.Controllers
+{
+    public class HomeController : Controller
+    {
+        public readonly IPieRepository _pieRepository;
+
+        public HomeController(IPieRepository pieRepository)
+        {
+            this._pieRepository = pieRepository;
+        }
+
+        public IActionResult Index()
+        {
+            var piesOfTheWeek = _pieRepository.PiesOfTheWeek;
+            var homeViewModel= new HomeViewModel(piesOfTheWeek);
+            return View(homeViewModel);
+        }
+    }
+}
